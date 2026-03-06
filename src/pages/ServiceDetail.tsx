@@ -1,6 +1,7 @@
-import { ChevronLeft, Star, Dog, Clock, User } from 'lucide-preact';
+import { Star, Dog, Clock } from 'lucide-preact';
 import { route } from 'preact-router';
 import { useState } from 'preact/hooks';
+import { MainLayout } from '../components/MainLayout';
 
 interface Props {
   path?: string;
@@ -10,18 +11,8 @@ export function ServiceDetail({ path: _path }: Props) {
   const [activeTab, setActiveTab] = useState('About');
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#F8FCFB' }}>
-      <div className="top-bar" style={{ backgroundColor: 'white', borderBottom: '1px solid #f0f0f0' }}>
-        <div className="icon-btn" onClick={() => history.back()}>
-          <ChevronLeft size={20} />
-        </div>
-        <img src="/logo.png" alt="Logo" style={{ height: '30px', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }} />
-        <div className="icon-btn" onClick={() => route('/profile')}>
-           <User size={20} />
-        </div>
-      </div>
-
-      <div style={{ padding: '20px', flex: 1, overflowY: 'auto', paddingBottom: '30px' }}>
+    <MainLayout showBackButton showBottomNav={false}>
+      <div style={{ padding: '20px', paddingBottom: '30px' }}>
         {/* Profile Card Section */}
         <div className="provider-hero-card">
            <div style={{ display: 'flex', gap: '15px' }}>
@@ -90,6 +81,6 @@ export function ServiceDetail({ path: _path }: Props) {
            Book This Provider
         </button>
       </div>
-    </div>
+    </MainLayout>
   );
 }

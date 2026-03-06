@@ -1,15 +1,13 @@
 import { useState, useMemo } from 'preact/hooks';
-import { Menu, User, Search, X, Dog, Clock } from 'lucide-preact';
-import { BottomNav } from '../components/BottomNav';
+import { Search, X, Dog, Clock } from 'lucide-preact';
 import { route } from 'preact-router';
-import { useSidebar } from '../context/SidebarContext';
+import { MainLayout } from '../components/MainLayout';
 
 interface Props {
   path?: string;
 }
 
 export function Chats({ path: _path }: Props) {
-  const { openSidebar } = useSidebar();
   const [search, setSearch] = useState('');
 
   const allChats = [
@@ -28,17 +26,7 @@ export function Chats({ path: _path }: Props) {
   }, [search]);
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-color)', overflow: 'hidden' }}>
-      <div className="top-bar" style={{ backgroundColor: 'white' }}>
-        <div className="icon-btn" onClick={openSidebar}>
-          <Menu size={20} />
-        </div>
-        <img src="/logo.png" alt="Logo" style={{ height: '30px', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }} />
-        <div className="icon-btn" onClick={() => route('/profile')}>
-           <User size={20} />
-        </div>
-      </div>
-
+    <MainLayout activeTab="chats">
       <div style={{ padding: '15px 20px', backgroundColor: 'white' }}>
         <div className="search-bar-rounded" style={{ backgroundColor: '#F5F5F5' }}>
           <Search size={18} color="var(--text-muted)" />
@@ -57,7 +45,7 @@ export function Chats({ path: _path }: Props) {
         <h3 style={{ fontSize: '18px', fontWeight: '800' }}>All Chats</h3>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '100px' }}>
+      <div style={{ paddingBottom: '20px' }}>
         <div className="chat-list">
           {filteredChats.length > 0 ? filteredChats.map((chat) => (
             <div key={chat.id} className="chat-item" onClick={() => route('/chat-detail')}>
@@ -103,8 +91,6 @@ export function Chats({ path: _path }: Props) {
           )}
         </div>
       </div>
-
-      <BottomNav activeTab="chats" />
-    </div>
+    </MainLayout>
   );
 }

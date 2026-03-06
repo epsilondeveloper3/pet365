@@ -1,15 +1,12 @@
-import { Menu, User, Calendar, Clock, Dog } from 'lucide-preact';
-import { BottomNav } from '../components/BottomNav';
+import { Calendar, Clock, Dog } from 'lucide-preact';
 import { useState, useMemo } from 'preact/hooks';
-import { route } from 'preact-router';
-import { useSidebar } from '../context/SidebarContext';
+import { MainLayout } from '../components/MainLayout';
 
 interface Props {
   path?: string;
 }
 
 export function Booking({ path: _path }: Props) {
-  const { openSidebar } = useSidebar();
   const [activeTab, setActiveTab] = useState('All');
 
   const bookings = [
@@ -28,17 +25,7 @@ export function Booking({ path: _path }: Props) {
   }, [activeTab]);
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-color)', overflow: 'hidden' }}>
-      <div className="top-bar">
-        <div className="icon-btn" onClick={openSidebar}>
-          <Menu size={20} />
-        </div>
-        <img src="/logo.png" alt="Logo" style={{ height: '30px', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }} />
-        <div className="icon-btn" onClick={() => route('/profile')}>
-           <User size={20} />
-        </div>
-      </div>
-
+    <MainLayout activeTab="booking">
       <div className="section-header" style={{ padding: '20px 20px 10px', backgroundColor: 'white' }}>
         <h3 style={{ fontSize: '20px', fontWeight: '800' }}>Booking History</h3>
       </div>
@@ -58,7 +45,7 @@ export function Booking({ path: _path }: Props) {
         </div>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '10px 0 100px' }}>
+      <div style={{ padding: '10px 0 20px' }}>
         {filteredBookings.length > 0 ? filteredBookings.map((b) => (
           <div key={b.id} className="booking-card">
             <div className="booking-header">
@@ -99,8 +86,6 @@ export function Booking({ path: _path }: Props) {
           </div>
         )}
       </div>
-
-      <BottomNav activeTab="booking" />
-    </div>
+    </MainLayout>
   );
 }

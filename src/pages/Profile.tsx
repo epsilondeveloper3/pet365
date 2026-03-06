@@ -1,28 +1,15 @@
-import { ChevronRight, Menu, RefreshCw, User, CreditCard, ShieldCheck, HelpCircle, LogOut, Phone, Mail, MapPin, Edit3 } from 'lucide-preact';
+import { ChevronRight, RefreshCw, User, CreditCard, ShieldCheck, HelpCircle, LogOut, Phone, Mail, MapPin, Edit3 } from 'lucide-preact';
 import { route } from 'preact-router';
-import { BottomNav } from '../components/BottomNav';
-import { useSidebar } from '../context/SidebarContext';
+import { MainLayout } from '../components/MainLayout';
 
 interface Props {
   path?: string;
 }
 
 export function Profile({ path: _path }: Props) {
-  const { openSidebar } = useSidebar();
-
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-color)' }}>
-      <div className="top-bar">
-        <div className="icon-btn" onClick={openSidebar}>
-          <Menu size={20} />
-        </div>
-        <img src="/logo.png" alt="Logo" style={{ height: '30px', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }} />
-        <div className="icon-btn" onClick={() => route('/profile')}>
-           <User size={20} />
-        </div>
-      </div>
-
-      <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '100px' }}>
+    <MainLayout activeTab="profile">
+      <div style={{ paddingBottom: '20px' }}>
         <div className="profile-header-card">
           <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop" className="profile-avatar-large" alt="Wade Warren" />
           <div>
@@ -102,9 +89,7 @@ export function Profile({ path: _path }: Props) {
           Log Out <LogOut size={18} />
         </button>
       </div>
-
-      <BottomNav activeTab="profile" />
-    </div>
+    </MainLayout>
   );
 }
 

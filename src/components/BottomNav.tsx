@@ -1,4 +1,3 @@
-import { useState } from 'preact/hooks';
 import { Home, Search as SearchIcon, MessageCircle, Calendar, PlusCircle } from 'lucide-preact';
 import { route } from 'preact-router';
 

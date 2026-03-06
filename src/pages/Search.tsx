@@ -1,15 +1,13 @@
 import { useState, useMemo } from 'preact/hooks';
-import { Menu, User, MapPin, Search as SearchIcon, Star, Navigation, X, Dog, Clock } from 'lucide-preact';
-import { BottomNav } from '../components/BottomNav';
+import { MapPin, Search as SearchIcon, Star, Navigation, X, Dog, Clock } from 'lucide-preact';
 import { route } from 'preact-router';
-import { useSidebar } from '../context/SidebarContext';
+import { MainLayout } from '../components/MainLayout';
 
 interface Props {
   path?: string;
 }
 
 export function Search({ path: _path }: Props) {
-  const { openSidebar } = useSidebar();
   const [searchQuery, setSearchQuery] = useState('');
   const [location, setLocation] = useState('Lose vegas, 949');
 
@@ -29,17 +27,7 @@ export function Search({ path: _path }: Props) {
   }, [searchQuery]);
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-color)', overflow: 'hidden' }}>
-      <div className="top-bar" style={{ backgroundColor: 'white' }}>
-        <div className="icon-btn" onClick={openSidebar}>
-          <Menu size={20} />
-        </div>
-        <img src="/logo.png" alt="Logo" style={{ height: '30px', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }} />
-        <div className="icon-btn" onClick={() => route('/profile')}>
-           <User size={20} />
-        </div>
-      </div>
-
+    <MainLayout activeTab="search">
       <div className="map-container" style={{ position: 'relative', height: '300px', flexShrink: 0 }}>
         {/* Mock Map Background */}
         <div style={{ 
@@ -90,7 +78,7 @@ export function Search({ path: _path }: Props) {
         ))}
       </div>
 
-      <div className="search-results-panel">
+      <div className="search-results-panel" style={{ paddingBottom: '20px', marginTop: '-30px', position: 'relative', zIndex: 5 }}>
         <div style={{ width: '40px', height: '4px', background: '#E0E0E0', borderRadius: '2px', margin: '0 auto 15px' }}></div>
         
         <div className="form-group" style={{ marginBottom: '20px' }}>
@@ -140,8 +128,6 @@ export function Search({ path: _path }: Props) {
           )}
         </div>
       </div>
-
-      <BottomNav activeTab="search" />
-    </div>
+    </MainLayout>
   );
 }

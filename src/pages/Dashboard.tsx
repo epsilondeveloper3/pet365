@@ -1,15 +1,12 @@
-import { Menu, User, MapPin, Calendar, Search, Filter, Dog, Clock } from 'lucide-preact';
-import { BottomNav } from '../components/BottomNav';
+import { MapPin, Calendar, Search, Filter, Dog, Clock } from 'lucide-preact';
 import { route } from 'preact-router';
-import { useSidebar } from '../context/SidebarContext';
+import { MainLayout } from '../components/MainLayout';
 
 interface Props {
   path?: string;
 }
 
 export function Dashboard({ path: _path }: Props) {
-  const { openSidebar } = useSidebar();
-
   const categories = [
     { name: 'Vets', icon: '/vet.png' },
     { name: 'Trainee', icon: '/traine.png' },
@@ -37,17 +34,7 @@ export function Dashboard({ path: _path }: Props) {
   ];
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: 'var(--bg-color)' }}>
-      <div className="top-bar">
-        <div className="icon-btn" onClick={openSidebar}>
-          <Menu size={20} />
-        </div>
-        <img src="/logo.png" alt="Logo" style={{ height: '30px', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }} />
-        <div className="icon-btn" onClick={() => route('/profile')}>
-           <User size={20} />
-        </div>
-      </div>
-
+    <MainLayout activeTab="home">
       <div className="search-section">
         <div className="search-bar-rounded" onClick={() => route('/search')}>
           <div className="location-item">
@@ -90,7 +77,7 @@ export function Dashboard({ path: _path }: Props) {
         <h3>Services</h3>
       </div>
 
-      <div className="categories-scroll" style={{ paddingBottom: '20px' }}>
+      <div className="categories-scroll">
         {categories.map(cat => (
           <div key={cat.name} className="category-item" onClick={() => route('/search')}>
             <div className="category-icon">
@@ -105,7 +92,7 @@ export function Dashboard({ path: _path }: Props) {
         <h3>Featured Providers</h3>
       </div>
 
-      <div className="providers-list" style={{ paddingBottom: '100px' }}>
+      <div className="providers-list" style={{ paddingBottom: '20px' }}>
         {providers.map((p, j) => (
           <div key={j} className="provider-card" onClick={() => route('/service-detail')}>
             <div className="provider-img-container">
@@ -126,8 +113,6 @@ export function Dashboard({ path: _path }: Props) {
           </div>
         ))}
       </div>
-
-      <BottomNav activeTab="home" />
-    </div>
+    </MainLayout>
   );
 }
