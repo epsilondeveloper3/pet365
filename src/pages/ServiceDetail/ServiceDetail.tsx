@@ -1,83 +1,219 @@
 import './ServiceDetail.css';
-import { ChevronLeft, Star, Dog, Clock, User } from 'lucide-preact';
+import { ChevronLeft, Star, Dog, Clock, Bell, User, MapPin, ChevronLeft as PrevIcon, ChevronRight as NextIcon, MessageSquare } from 'lucide-preact';
 import { route } from 'preact-router';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
+import { providers, type Provider } from '../../data/providers';
+
 interface Props {
   path?: string;
+  id?: string;
 }
-export function ServiceDetail({
-  path: _path
-}: Props) {
+
+export function ServiceDetail({ id }: Props) {
+  const [provider, setProvider] = useState<Provider | null>(null);
   const [activeTab, setActiveTab] = useState('About');
-  return <div className="-service-detail-style-1">
-      <div className="top-bar -service-detail-style-2">
-        <div className="icon-btn" onClick={() => history.back()}>
+  const [showBooking, setShowBooking] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('24');
+  const [selectedTime, setSelectedTime] = useState('10:30 PM');
+
+  useEffect(() => {
+    if (id) {
+      const found = providers.find(p => p.id === id);
+      if (found) setProvider(found);
+    }
+  }, [id]);
+
+  if (!provider) return <div className="container">Loading...</div>;
+
+  return (
+    <div className="container dashboard-container service-detail-page">
+      <div className="top-bar">
+        <div className="icon-btn" onClick={() => window.history.back()}>
           <ChevronLeft size={20} />
         </div>
-        <img src="/logo.png" alt="Logo" className="-service-detail-style-3" />
-        <div className="icon-btn" onClick={() => route('/profile')}>
-           <User size={20} />
+        <img src="/logo.png" alt="Logo" style={{ width: '100px' }} />
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <div className="icon-btn" onClick={() => route('/notifications')}>
+            <Bell size={20} />
+          </div>
+          <div className="icon-btn" onClick={() => route('/profile')}>
+            <User size={20} />
+          </div>
         </div>
       </div>
 
-      <div className="-service-detail-style-4">
-        {/* Profile Card Section */}
-        <div className="provider-hero-card">
-           <div className="-service-detail-style-5">
-              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop" className="provider-hero-img" alt="Emily Jose" />
-              <div className="-service-detail-style-6">
-                 <div className="-service-detail-style-7">
-                    <h2 className="-service-detail-style-8">I'M EMILY JOSE</h2>
-                 </div>
-                 <p className="-service-detail-style-9">A cat sitter in Ridgewood, NY</p>
-                 
-                 <div className="-service-detail-style-10">
-                    <div className="tag-chip">
-                       <Dog size={12} /> Dog, Cat
-                    </div>
-                    <div className="tag-chip">
-                       <Clock size={12} /> 2 Year Exp
-                    </div>
-                 </div>
+      <div className="provider-header-card">
+         <div className="ph-content">
+            <img src={provider.img} className="ph-avatar" alt={provider.name} />
+            <div className="ph-info">
+               <h2>I'M {provider.name}</h2>
+               <p className="ph-loc">A {provider.type.toLowerCase()} in {provider.location}</p>
+               <div className="ph-tags">
+                  <span className="ph-tag"><Dog size={12} /> {provider.pets}</span>
+                  <span className="ph-tag"><Clock size={12} /> Exp: {provider.exp}</span>
+               </div>
+               <div className="ph-stats">
+                  <div className="ph-stat">
+                     <span className="stat-lbl">Rating</span>
+                     <div className="stat-val"><Star size={14} fill="#FFD700" color="#FFD700" /> {provider.rating}</div>
+                  </div>
+                  <div className="stat-div"></div>
+                  <div className="ph-stat">
+                     <span className="stat-lbl">Price</span>
+                     <div className="stat-val price">${provider.price}</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
 
-                 <div className="-service-detail-style-11">
-                    <div>
-                        <span className="-service-detail-style-12">Rating</span>
-                        <div className="-service-detail-style-13">
-                            <Star size={14} color="#FFD700" fill="#FFD700" />
-                            <span className="-service-detail-style-14">4.5</span>
-                        </div>
+      <div className="certification-section">
+         <p>Certification</p>
+         <div className="cert-icons">
+            <img src="/cert1.png" alt="Cert" />
+            <img src="/cert2.png" alt="Cert" />
+            <img src="/cert3.png" alt="Cert" />
+         </div>
+      </div>
+
+      <div className="detail-tabs">
+        {['About', 'Reviews', 'Availability'].map(tab => (
+          <button 
+            key={tab} 
+            className={`detail-tab-btn ${activeTab === tab ? 'active' : ''}`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      <div className="tab-content-area">
+        {activeTab === 'About' && (
+          <div className="about-tab">
+            <p className="bio-text">{provider.bio}</p>
+            
+            <div className="service-rates">
+               <h3>{provider.name.split(' ')[0]}'s Service Area & Rates</h3>
+               <div className="rate-item">
+                  <div className="rate-ic"><MessageSquare size={16} /></div>
+                  <div className="rate-info">
+                     <h4>Meet & Greets</h4>
+                  </div>
+               </div>
+               <div className="rate-item">
+                  <div className="rate-ic"><MapPin size={16} /></div>
+                  <div className="rate-info">
+                     <h4>Drop-in visits to your home</h4>
+                     <ul>
+                        <li>$25.00 / 20min</li>
+                        <li>$39.25 / 45min</li>
+                        <li>$50.00 / 60min</li>
+                     </ul>
+                  </div>
+               </div>
+               <img src="/map_static.png" className="static-map-img" alt="Map" />
+            </div>
+
+            <div className="cancel-policy">
+               <h3>Cancellation Policy</h3>
+               <p>Cat parents may cancel within 24 hours of making their reservation and receive a full refund...</p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'Reviews' && (
+          <div className="reviews-tab">
+            <div className="reviews-header">
+               <h3>{provider.name.split(' ')[0]}'s Reviews</h3>
+               <button className="sort-btn">Sort By <ChevronDown size={14} /></button>
+            </div>
+            {provider.reviews.length > 0 ? provider.reviews.map(r => (
+               <div key={r.id} className="review-card">
+                  <div className="review-user-row">
+                     <img src={r.avatar} alt={r.user} />
+                     <div className="ru-info">
+                        <h4>{r.user}</h4>
+                        <span>{r.date}</span>
+                     </div>
+                     <div className="ru-rating"><Star size={12} fill="#FFD700" color="#FFD700" /> {r.rating}</div>
+                  </div>
+                  <p>{r.comment}</p>
+               </div>
+            )) : <p className="empty-txt">No reviews yet.</p>}
+          </div>
+        )}
+
+        {activeTab === 'Availability' && (
+          <div className="availability-tab">
+            <div className="calendar-box">
+               <div className="cal-header">
+                  <PrevIcon size={18} />
+                  <span>January - 2026</span>
+                  <NextIcon size={18} />
+               </div>
+               <div className="cal-grid">
+                  {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map(d => <span key={d} className="cal-day-label">{d}</span>)}
+                  {Array.from({ length: 31 }).map((_, i) => (
+                    <span key={i} className={`cal-date ${(i+1) % 5 === 0 ? 'red' : (i+1) === 15 ? 'active' : ''}`}>{i + 1}</span>
+                  ))}
+               </div>
+               <div className="cal-legend">
+                  <span className="leg-item"><div className="dot available"></div> Available</span>
+                  <span className="leg-item"><div className="dot busy"></div> Not Available</span>
+               </div>
+            </div>
+            <div className="bottom-btns">
+               <button className="btn-book-primary" onClick={() => setShowBooking(true)}>Book Service</button>
+               <button className="btn-chats-sec" onClick={() => route('/chats')}><MessageSquare size={18} /> Chats</button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Booking Side Sheet / Modal */}
+      {showBooking && (
+        <div className="booking-overlay" onClick={() => setShowBooking(false)}>
+           <div className="booking-sheet" onClick={e => e.stopPropagation()}>
+              <div className="sheet-handle"></div>
+              <h3>Book Service</h3>
+              <p className="sheet-sub">Pick Date & Time</p>
+              
+              <div className="date-scroll">
+                 {['22 Mon', '23 Tue', '24 Wed', '25 Thu', '26 Fri'].map(d => (
+                    <div 
+                      key={d} 
+                      className={`date-pill ${selectedDate === d.split(' ')[0] ? 'active' : ''}`}
+                      onClick={() => setSelectedDate(d.split(' ')[0])}
+                    >
+                       <span>{d.split(' ')[0]}</span>
+                       <small>{d.split(' ')[1]}</small>
                     </div>
-                    <div className="-service-detail-style-15"></div>
-                    <div>
-                        <span className="-service-detail-style-16">Price</span>
-                        <h3 className="-service-detail-style-17">$129.99</h3>
-                    </div>
-                 </div>
+                 ))}
               </div>
+
+              <div className="time-grid">
+                 {['09:30 PM', '10:00 PM', '10:30 PM', '11:00 PM', '11:30 PM'].map(t => (
+                    <button 
+                      key={t} 
+                      className={`time-btn ${selectedTime === t ? 'active' : ''}`}
+                      onClick={() => setSelectedTime(t)}
+                    >
+                      {t}
+                    </button>
+                 ))}
+              </div>
+
+              <button className="btn-confirm-booking" onClick={() => { alert('Service Booked Successfully!'); setShowBooking(false); }}>
+                 Book Service Now
+              </button>
            </div>
         </div>
+      )}
+    </div>
+  );
+}
 
-        {/* Custom Tabs */}
-        <div className="tab-container-rounded">
-          {['About', 'Reviews'].map(tab => <div key={tab} className={`tab-item-rounded ${activeTab === tab ? 'active' : ''}`} onClick={() => setActiveTab(tab)}>
-              {tab}
-            </div>)}
-        </div>
-
-        {/* Content Section */}
-        <div className="about-content">
-          {activeTab === 'About' ? <p className="-service-detail-style-18">
-              Emily is a lifelong pet lover. They're available for overnight stays on weekends and can administer topical, eye/ear, and oral meds. Your furry family will be treated with love and care while you're away! 🐱✨ <br /><br />
-              They have extensive experience with senior pets and special needs. They provide regular photo updates and a detailed report after each visit.
-            </p> : <div className="-service-detail-style-19">
-                No reviews yet for this provider.
-             </div>}
-        </div>
-
-        <button className="book-now-btn" onClick={() => route('/dashboard')}>
-           Book This Provider
-        </button>
-      </div>
-    </div>;
+function ChevronDown(props: any) {
+  return <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>;
 }

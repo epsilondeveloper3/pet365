@@ -20,7 +20,7 @@ export function OTP({
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
-  return <div className="container">
+  return <div className="container otp-page">
       <div className="logo-container">
         <img src="/logo.png" alt="Pet365 Logo" className="logo-image" />
       </div>

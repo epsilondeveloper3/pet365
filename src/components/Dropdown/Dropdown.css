@@ -1,0 +1,44 @@
+.select-container {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background-color: var(--white);
+  font-size: 15px;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+.custom-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(23, 123, 119, 0.1);
+}
+
+.select-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+/* Ensure placeholder color is muted */
+.custom-select:invalid,
+.custom-select[value=""] {
+  color: var(--text-muted);
+}
+
+.custom-select option {
+  color: var(--text-main);
+}

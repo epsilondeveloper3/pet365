@@ -6,10 +6,15 @@ import { OTP } from './pages/OTP/OTP';
 import { Loader } from './components/Loader';
 import { BecomeProvider1 } from './pages/BecomeProvider1/BecomeProvider1';
 import { BecomeProvider2 } from './pages/BecomeProvider2/BecomeProvider2';
+import { BecomeProvider3 } from './pages/BecomeProvider3/BecomeProvider3';
+import { PetOwnerDetails } from './pages/PetOwnerDetails/PetOwnerDetails';
 import { Dashboard } from './pages/Dashboard/Dashboard';
 import { Booking } from './pages/Booking/Booking';
 import { Search } from './pages/Search/Search';
 import { Chats } from './pages/Chats/Chats';
+import { Notifications } from './pages/Notifications/Notifications';
+import { AddPet } from './pages/AddPet/AddPet';
+import { MyPets } from './pages/MyPets/MyPets';
 import { ChatDetail } from './pages/ChatDetail/ChatDetail';
 import { Profile } from './pages/Profile/Profile';
 import { EditProfile } from './pages/EditProfile/EditProfile';
@@ -43,14 +48,20 @@ export function App() {
           <OTP path="/otp" />
           <BecomeProvider1 path="/become-provider-1" />
           <BecomeProvider2 path="/become-provider-2" />
+          <BecomeProvider3 path="/become-provider-3" />
+          <PetOwnerDetails path="/pet-owner-details" />
           <Dashboard path="/dashboard" />
+          <Notifications path="/notifications" />
+          <AddPet path="/add-pet" />
+          <AddPet path="/edit-pet/:id" />
+          <MyPets path="/my-pets" />
           <Booking path="/booking" />
           <Search path="/search" />
           <Chats path="/chats" />
           <ChatDetail path="/chat-detail" />
           <Profile path="/profile" />
           <EditProfile path="/edit-profile" />
-          <ServiceDetail path="/service-detail" />
+          <ServiceDetail path="/service-detail/:id" />
           <PrivacyPolicy path="/privacy" />
           <HelpSupport path="/support" />
         </Router>

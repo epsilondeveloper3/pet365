@@ -1,0 +1,167 @@
+.add-pet-page-v2 {
+  padding-bottom: 30px;
+}
+
+.add-pet-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 0 5px;
+}
+
+.add-pet-nav-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.circ-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.upload-box-v2 {
+  border: 1px dashed var(--primary-light);
+  border-radius: 16px;
+  padding: 30px 20px;
+  background-color: var(--white);
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pet-prev-sq {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.up-ic-v2 {
+  color: var(--primary);
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.upload-empty-v2 h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.upload-empty-v2 p {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.gender-sel-row {
+  display: flex;
+  gap: 15px;
+}
+
+.gender-sel-btn {
+  flex: 1;
+  background-color: var(--white);
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  padding: 12px 15px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.gender-sel-btn.active {
+  background-color: rgba(23, 123, 119, 0.08);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.rad-circ {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #D1D5DB;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active .rad-circ {
+  border-color: var(--primary);
+}
+
+.rad-inner {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.active .rad-inner {
+  background-color: var(--primary);
+}
+
+.age-step-v2 {
+  position: relative;
+}
+
+.age-step-v2 input {
+  font-weight: 600;
+  color: var(--primary);
+  padding-right: 50px;
+}
+
+.step-ctrls-v2 {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.step-ctrls-v2 button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+}
+
+.step-ctrls-v2 button:hover {
+  color: var(--primary);
+}
+
+.a-pet-submit-box {
+  margin-top: 30px;
+}
+
+.btn-add-full {
+  width: 100%;
+  padding: 16px;
+  border-radius: 30px;
+}

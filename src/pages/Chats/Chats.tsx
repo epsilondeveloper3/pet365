@@ -1,12 +1,14 @@
 import './Chats.css';
 import { useState, useMemo } from 'preact/hooks';
-import { Menu, User, Search, X, Dog, Clock } from 'lucide-preact';
+import { Menu, User, Search, X, Dog, Clock, Bell } from 'lucide-preact';
 import { BottomNav } from '../../components/BottomNav';
 import { route } from 'preact-router';
 import { useSidebar } from '../../context/SidebarContext';
+
 interface Props {
   path?: string;
 }
+
 export function Chats({
   path: _path
 }: Props) {
@@ -14,6 +16,7 @@ export function Chats({
     openSidebar
   } = useSidebar();
   const [search, setSearch] = useState('');
+
   const allChats = [{
     id: 1,
     name: 'Philip',
@@ -65,17 +68,25 @@ export function Chats({
     exp: '5 Year',
     time: 'March 3'
   }];
+
   const filteredChats = useMemo(() => {
     return allChats.filter(c => c.name.toLowerCase().includes(search.toLowerCase()) || c.type.toLowerCase().includes(search.toLowerCase()));
   }, [search]);
-  return <div className="-chats-style-1">
+
+  return (
+    <div className="-chats-style-1">
       <div className="top-bar -chats-style-2">
         <div className="icon-btn" onClick={openSidebar}>
           <Menu size={20} />
         </div>
         <img src="/logo.png" alt="Logo" className="-chats-style-3" />
-        <div className="icon-btn" onClick={() => route('/profile')}>
-           <User size={20} />
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <div className="icon-btn" onClick={() => route('/notifications')}>
+            <Bell size={20} />
+          </div>
+          <div className="icon-btn" onClick={() => route('/profile')}>
+            <User size={20} />
+          </div>
         </div>
       </div>
 
@@ -93,7 +104,8 @@ export function Chats({
 
       <div className="-chats-style-10">
         <div className="chat-list">
-          {filteredChats.length > 0 ? filteredChats.map(chat => <div key={chat.id} className="chat-item" onClick={() => route('/chat-detail')}>
+          {filteredChats.length > 0 ? filteredChats.map(chat => (
+            <div key={chat.id} className="chat-item" onClick={() => route('/chat-detail')}>
               <img src={chat.img} className="chat-avatar" alt={chat.name} />
               <div className="chat-info">
                 <div className="chat-name-row">
@@ -115,12 +127,16 @@ export function Chats({
                     </div>}
                 </div>
               </div>
-            </div>) : <div className="-chats-style-20">
+            </div>
+          )) : (
+            <div className="-chats-style-20">
               <p>No chats found.</p>
-            </div>}
+            </div>
+          )}
         </div>
       </div>
 
       <BottomNav activeTab="chats" />
-    </div>;
+    </div>
+  );
 }

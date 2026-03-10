@@ -1,17 +1,21 @@
 import './Dashboard.css';
-import { Menu, User, MapPin, Calendar, Search, Filter, Dog, Clock } from 'lucide-preact';
+import { Menu, User, MapPin, Calendar, Search, Filter, Dog, Clock, Bell } from 'lucide-preact';
 import { BottomNav } from '../../components/BottomNav';
+import { providers } from '../../data/providers';
 import { route } from 'preact-router';
 import { useSidebar } from '../../context/SidebarContext';
+
 interface Props {
   path?: string;
 }
+
 export function Dashboard({
   path: _path
 }: Props) {
   const {
     openSidebar
   } = useSidebar();
+  
   const categories = [{
     name: 'Vets',
     icon: '/vet.png'
@@ -25,29 +29,21 @@ export function Dashboard({
     name: 'Boarding',
     icon: '/Boarding.png'
   }];
-  const providers = [{
-    name: 'Jose Will',
-    type: 'Trainee',
-    rating: '4.5',
-    exp: '2 Year',
-    pets: 'Dog, Cat',
-    img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop'
-  }, {
-    name: 'Philip',
-    type: 'Groomers',
-    rating: '5.0',
-    exp: '3 Year',
-    pets: 'Dog, Cat',
-    img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop'
-  }];
-  return <div className="-dashboard-style-1">
+
+  return (
+    <div className="-dashboard-style-1 dashboard-container">
       <div className="top-bar">
         <div className="icon-btn" onClick={openSidebar}>
           <Menu size={20} />
         </div>
         <img src="/logo.png" alt="Logo" className="-dashboard-style-2" />
-        <div className="icon-btn" onClick={() => route('/profile')}>
-           <User size={20} />
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <div className="icon-btn" onClick={() => route('/notifications')}>
+            <Bell size={20} />
+          </div>
+          <div className="icon-btn" onClick={() => route('/profile')}>
+            <User size={20} />
+          </div>
         </div>
       </div>
 
@@ -90,12 +86,14 @@ export function Dashboard({
       </div>
 
       <div className="categories-scroll -dashboard-style-6">
-        {categories.map(cat => <div key={cat.name} className="category-item" onClick={() => route('/search')}>
+        {categories.map(cat => (
+          <div key={cat.name} className="category-item" onClick={(e) => { e.preventDefault(); route('/search'); }}>
             <div className="category-icon">
               <img src={cat.icon} alt={cat.name} />
             </div>
             <span className="-dashboard-style-7">{cat.name}</span>
-          </div>)}
+          </div>
+        ))}
       </div>
 
       <div className="section-header">
@@ -103,7 +101,8 @@ export function Dashboard({
       </div>
 
       <div className="providers-list -dashboard-style-8">
-        {providers.map((p, j) => <div key={j} className="provider-card" onClick={() => route('/service-detail')}>
+        {providers.map((p) => (
+          <div key={p.id} className="provider-card" onClick={(e) => { e.preventDefault(); route(`/service-detail/${p.id}`); }}>
             <div className="provider-img-container">
               <img src={p.img} alt={p.name} className="provider-img" />
               <div className="rating-badge">
@@ -119,9 +118,11 @@ export function Dashboard({
               </div>
               <button className="book-btn-sm">Book Now</button>
             </div>
-          </div>)}
+          </div>
+        ))}
       </div>
 
       <BottomNav activeTab="home" />
-    </div>;
+    </div>
+  );
 }

@@ -20,3 +20,19 @@
   margin-top: auto;
   padding-bottom: 20px;
 }
+
+.otp-page {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+.otp-container {
+  gap: 10px;
+  margin: 40px 0;
+}
+
+.otp-input {
+  width: 45px;
+  height: 48px;
+  font-size: 20px;
+}

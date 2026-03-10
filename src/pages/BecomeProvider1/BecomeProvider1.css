@@ -1,44 +1,121 @@
-.-become-provider1-style-1 {
-  padding-bottom: 100px;
+.become-provider-container {
+  padding-bottom: 40px;
 }
 
-.-become-provider1-style-2 {
-  display: none;
+.select-container {
+  position: relative;
 }
 
-.-become-provider1-style-3 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.custom-select {
   width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background-color: var(--white);
+  font-size: 15px;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  color: var(--text-main);
+  transition: var(--transition);
 }
 
-.-become-provider1-style-4 {
+.custom-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(23, 123, 119, 0.1);
+}
+
+.select-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.divider-dashed {
+  border-top: 1px dashed #D1D5DB;
+  margin: 10px 0 25px 0;
+}
+
+.file-preview {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-}
-
-.-become-provider1-style-5 {
   text-align: left;
 }
 
-.-become-provider1-style-6 {
-  margin: 0;
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.file-details h3 {
   font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: var(--text-main);
+  word-break: break-all;
 }
 
-.-become-provider1-style-7 {
-  margin: 0;
+.file-details p {
   font-size: 12px;
+  color: var(--text-muted);
 }
 
-.-become-provider1-style-8 {
+.remove-btn {
   color: var(--error);
   cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: var(--transition);
 }
 
-.-become-provider1-style-9 {
-  margin-top: auto;
-  padding-top: 30px;
+.remove-btn:hover {
+  background-color: rgba(255, 77, 77, 0.1);
+}
+
+.requirements-box {
+  background-color: rgba(23, 123, 119, 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.requirements-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.requirements-header h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.requirements-box ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.requirements-box li {
+  font-size: 12px;
+  color: var(--text-muted);
+  position: relative;
+  padding-left: 15px;
+  margin-bottom: 5px;
+}
+
+.requirements-box li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+}
+
+.button-group {
+  margin-top: 10px;
 }

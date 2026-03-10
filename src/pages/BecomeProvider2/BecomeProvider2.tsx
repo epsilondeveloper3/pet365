@@ -1,109 +1,103 @@
 import './BecomeProvider2.css';
-import { UploadCloud, MapPin, ChevronDown, X } from 'lucide-preact';
-import { route } from 'preact-router';
 import { useState, useRef } from 'preact/hooks';
+import { UploadCloud, FileText, X } from 'lucide-preact';
+import { route } from 'preact-router';
+import { Dropdown } from '../../components/Dropdown/Dropdown';
+
 interface Props {
   path?: string;
 }
+
 export function BecomeProvider2({
   path: _path
 }: Props) {
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [bankType, setBankType] = useState('');
+  const [bankDocument, setBankDocument] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
-  };
+
+  const bankOptions = [
+    { label: 'State Bank of India', value: 'sbi' },
+    { label: 'HDFC Bank', value: 'hdfc' },
+    { label: 'ICICI Bank', value: 'icici' },
+    { label: 'Axis Bank', value: 'axis' }
+  ];
+
+  const handleUploadClick = () => fileInputRef.current?.click();
+
   const handleFileChange = (e: any) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = event => {
-        setProfileImage(event.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
+    if (file) setBankDocument(file);
   };
-  const removeImage = (e: any) => {
+
+  const removeFile = (e: any) => {
     e.stopPropagation();
-    setProfileImage(null);
+    setBankDocument(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
-  return <div className="container -become-provider2-style-1">
+
+  return (
+    <div className="container become-provider-container">
       <div className="logo-container">
         <img src="/logo.png" alt="Pet365 Logo" className="logo-image" />
       </div>
 
       <div className="header">
-        <h1>Become Provider</h1>
-        <p>Verify Your Professional Profile</p>
+        <h1>Bank Details</h1>
+        <p>Where are you located?</p>
+      </div>
+
+      <Dropdown 
+        label="Bank Type"
+        options={bankOptions}
+        value={bankType}
+        onChange={setBankType}
+        placeholder="Select Bank"
+      />
+
+      <div className="form-group">
+        <label>IFSC Code</label>
+        <input type="text" placeholder="Enter Code" />
       </div>
 
       <div className="form-group">
-        <label>Upload Profile</label>
-        <input type="file" ref={fileInputRef} accept="image/*" onChange={handleFileChange} className="-become-provider2-style-2" />
-        <div className="upload-card -become-provider2-style-3" onClick={handleUploadClick} style={{
-        padding: profileImage ? '10px' : '20px'
-      }}>
-          {profileImage ? <div className="-become-provider2-style-4">
-              <img src={profileImage} alt="Profile Preview" className="-become-provider2-style-5" />
-              <div onClick={removeImage} className="-become-provider2-style-6">
-                <X size={16} />
+        <label>Upload Document</label>
+        <input 
+          type="file" 
+          ref={fileInputRef} 
+          accept=".png,.jpg,.jpeg" 
+          onChange={handleFileChange} 
+          style={{ display: 'none' }} 
+        />
+        <div className="upload-card" onClick={handleUploadClick}>
+          {bankDocument ? (
+            <div className="file-preview">
+              <div className="file-info">
+                <FileText size={32} color="var(--primary)" />
+                <div className="file-details">
+                  <h3>{bankDocument.name}</h3>
+                  <p>{(bankDocument.size / 1024).toFixed(1)} KB</p>
+                </div>
               </div>
-            </div> : <>
+              <div onClick={removeFile} className="remove-btn">
+                <X size={20} />
+              </div>
+            </div>
+          ) : (
+            <div className="upload-placeholder">
               <div className="icon">
-                <UploadCloud size={24} />
+                <UploadCloud size={32} />
               </div>
-              <div className="-become-provider2-style-7">
-                <h3 className="-become-provider2-style-8">Upload Profile Picture</h3>
-                <p className="-become-provider2-style-9">Profile must be png or jpeg, jpg</p>
-              </div>
-            </>}
+              <h3>Upload Profile Picture</h3>
+              <p>Profile must be png or jpeg, jpg</p>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="form-group">
-        <label>Business Name</label>
-        <input type="text" placeholder="Enter name" />
+      <div className="button-group" style={{ marginTop: 'auto' }}>
+        <button className="btn btn-primary" onClick={() => route('/become-provider-3')}>Next</button>
       </div>
-
-      <div className="form-group">
-        <label>Service Category</label>
-        <div className="input-container">
-          <input type="text" placeholder="Select Service" readOnly />
-          <div className="input-icon">
-            <ChevronDown size={20} />
-          </div>
-        </div>
-      </div>
-
-      <div className="form-group">
-        <label>Years of Experience</label>
-        <div className="input-container">
-          <input type="number" placeholder="3 exp" />
-          <div className="input-icon">
-             <div className="-become-provider2-style-10">
-                <ChevronDown size={14} className="-become-provider2-style-11" />
-                <ChevronDown size={14} />
-             </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="form-group">
-        <label>Business Address</label>
-        <div className="input-container">
-          <input type="text" placeholder="Address" />
-          <div className="input-icon -become-provider2-style-12">
-            <MapPin size={20} />
-          </div>
-        </div>
-      </div>
-
-      <div className="form-group">
-        <label>Short Bio</label>
-        <textarea placeholder="Enter About Your Self" className="-become-provider2-style-13" />
-      </div>
-
-      <button className="btn btn-primary" onClick={() => route('/')}>Submit</button>
-    </div>;
+    </div>
+  );
 }
+

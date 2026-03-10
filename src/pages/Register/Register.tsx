@@ -34,6 +34,8 @@ export function Register({
     });
     if (role === 'Provider') {
       route('/become-provider-1');
+    } else if (role === 'Find Service') {
+      route('/pet-owner-details');
     } else {
       route('/otp');
     }

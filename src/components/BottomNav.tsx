@@ -1,4 +1,4 @@
-import { Home, Search as SearchIcon, MessageCircle, Calendar, PlusCircle } from 'lucide-preact';
+import { Home, Search as SearchIcon, MessageCircle, Calendar, Dog } from 'lucide-preact';
 import { route } from 'preact-router';
 
 interface BottomNavProps {
@@ -42,10 +42,10 @@ export function BottomNav({ activeTab }: BottomNavProps) {
 
       <div 
         className={`nav-item ${activeTab === 'profile' ? 'active-pill' : ''}`}
-        onClick={() => route('/profile')}
+        onClick={() => route('/my-pets')}
       >
-        <PlusCircle size={20} />
-        {activeTab === 'profile' && <span>Profile</span>}
+        <Dog size={20} />
+        {activeTab === 'profile' && <span>Pets</span>}
       </div>
     </div>
   );
