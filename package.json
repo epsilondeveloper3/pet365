@@ -18,6 +18,9 @@
     "preact-router": "^4.1.2"
   },
   "devDependencies": {
+    "@babel/generator": "^7.29.1",
+    "@babel/parser": "^7.29.0",
+    "@babel/traverse": "^7.29.0",
     "@preact/preset-vite": "^2.10.2",
     "@react-native-community/cli": "^20.1.2",
     "@types/node": "^24.10.1",

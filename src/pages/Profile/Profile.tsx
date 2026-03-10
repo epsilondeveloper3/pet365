@@ -1,70 +1,58 @@
+import './Profile.css';
 import { ChevronRight, Menu, RefreshCw, User, CreditCard, ShieldCheck, HelpCircle, LogOut, Phone, Mail, MapPin, Edit3 } from 'lucide-preact';
 import { route } from 'preact-router';
-import { BottomNav } from '../components/BottomNav';
-import { useSidebar } from '../context/SidebarContext';
-
+import { BottomNav } from '../../components/BottomNav';
+import { useSidebar } from '../../context/SidebarContext';
 interface Props {
   path?: string;
 }
-
-export function Profile({ path: _path }: Props) {
-  const { openSidebar } = useSidebar();
-
-  return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-color)' }}>
+export function Profile({
+  path: _path
+}: Props) {
+  const {
+    openSidebar
+  } = useSidebar();
+  return <div className="-profile-style-1">
       <div className="top-bar">
         <div className="icon-btn" onClick={openSidebar}>
           <Menu size={20} />
         </div>
-        <img src="/logo.png" alt="Logo" style={{ height: '30px', position: 'absolute', left: '50%', transform: 'translateX(-50%)' }} />
+        <img src="/logo.png" alt="Logo" className="-profile-style-2" />
         <div className="icon-btn" onClick={() => route('/profile')}>
            <User size={20} />
         </div>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '100px' }}>
+      <div className="-profile-style-3">
         <div className="profile-header-card">
           <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop" className="profile-avatar-large" alt="Wade Warren" />
           <div>
-            <h2 style={{ fontSize: '18px', margin: 0 }}>Wade Warren</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '8px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'var(--text-muted)' }}>
+            <h2 className="-profile-style-4">Wade Warren</h2>
+            <div className="-profile-style-5">
+              <div className="-profile-style-6">
                 <Phone size={14} color="var(--primary)" /> (201) 555-0124
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'var(--text-muted)' }}>
+              <div className="-profile-style-7">
                 <Mail size={14} color="var(--primary)" /> john@example.com
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'var(--text-muted)' }}>
+              <div className="-profile-style-8">
                 <MapPin size={14} color="var(--primary)" /> 3890 Poplar Dr.
               </div>
             </div>
           </div>
           <div className="owner-badge">Owner</div>
-          <div 
-            onClick={() => route('/edit-profile')} 
-            style={{ 
-              position: 'absolute', 
-              bottom: '15px', 
-              right: '15px', 
-              background: 'var(--bg-color)',
-              padding: '6px',
-              borderRadius: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              cursor: 'pointer' 
-            }}
-          >
+          <div onClick={() => route('/edit-profile')} className="-profile-style-9">
             <Edit3 size={16} color="var(--primary)" />
           </div>
         </div>
 
-        <div style={{ padding: '0 20px', marginBottom: '10px' }}>
-          <button className="btn btn-primary" style={{ borderRadius: '15px', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%' }} onClick={() => route('/become-provider-1')}>
+        <div className="-profile-style-10">
+          <button className="btn btn-primary -profile-style-11" onClick={() => route('/become-provider-1')}>
             <RefreshCw size={18} /> Switch To Provider
           </button>
         </div>
 
-        <div className="menu-list" style={{ marginTop: '10px' }}>
+        <div className="menu-list -profile-style-12">
           <div onClick={() => route('/edit-profile')} className="menu-item">
             <div className="menu-item-left">
               <User size={20} color="var(--primary)" />
@@ -104,7 +92,5 @@ export function Profile({ path: _path }: Props) {
       </div>
 
       <BottomNav activeTab="profile" />
-    </div>
-  );
+    </div>;
 }
-

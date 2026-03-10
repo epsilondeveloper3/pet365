@@ -1,0 +1,149 @@
+.-search-style-1 {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  overflow: hidden;
+}
+
+.-search-style-2 {
+  background-color: white;
+}
+
+.-search-style-3 {
+  height: 30px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.-search-style-4 {
+  position: relative;
+  height: 300px;
+  flex-shrink: 0;
+}
+
+.-search-style-5 {
+  position: absolute;
+  inset: 0;
+  background: url("https://api.mapbox.com/styles/v1/mapbox/light-v10/static/-76.6122,39.2904,12/450x300?access_token=none") cover;
+  background-color: #e5e5e5;
+}
+
+.-search-style-6 {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.-search-style-7 {
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.-search-style-8 {
+  flex: 1;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.-search-style-9 {
+  transition: 0.5s;
+}
+
+.-search-style-10 {
+  background: white;
+  padding: 4px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.-search-style-11 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.-search-style-12 {
+  width: 40px;
+  height: 4px;
+  background: #E0E0E0;
+  border-radius: 2px;
+  margin: 0 auto 15px;
+}
+
+.-search-style-13 {
+  margin-bottom: 20px;
+}
+
+.-search-style-14 {
+  background-color: #F5F5F5;
+  border-radius: 15px;
+}
+
+.-search-style-15 {
+  padding: 12px 15px;
+}
+
+.-search-style-16 {
+  padding: 0;
+}
+
+.-search-style-17 {
+  margin-top: 15px;
+}
+
+.-search-style-18 {
+  width: 55px;
+  height: 55px;
+}
+
+.-search-style-19 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.-search-style-20 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.-search-style-21 {
+  color: var(--primary);
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.-search-style-22 {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.-search-style-23 {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.-search-style-24 {
+  color: var(--primary);
+}
+
+.-search-style-25 {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-muted);
+}

@@ -1,0 +1,44 @@
+.-static-pages-style-1 {
+  padding: 0 0 20px 0;
+}
+
+.-static-pages-style-2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.-static-pages-style-3 {
+  width: 40px;
+}
+
+.-static-pages-style-4 {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.-static-pages-style-5 {
+  margin-top: 20px;
+}
+
+.-static-pages-style-6 {
+  padding: 0 0 20px 0;
+}
+
+.-static-pages-style-7 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.-static-pages-style-8 {
+  width: 40px;
+}
+
+.-static-pages-style-9 {
+  width: 100%;
+  min-height: 150px;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+}

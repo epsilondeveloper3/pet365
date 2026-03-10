@@ -1,0 +1,22 @@
+.-o-t-p-style-1 {
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 5px;
+}
+
+.-o-t-p-style-2 {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.-o-t-p-style-3 {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.-o-t-p-style-4 {
+  margin-top: auto;
+  padding-bottom: 20px;
+}

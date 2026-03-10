@@ -1,38 +1,34 @@
+import './BecomeProvider2.css';
 import { UploadCloud, MapPin, ChevronDown, X } from 'lucide-preact';
 import { route } from 'preact-router';
 import { useState, useRef } from 'preact/hooks';
-
 interface Props {
   path?: string;
 }
-
-export function BecomeProvider2({ path: _path }: Props) {
+export function BecomeProvider2({
+  path: _path
+}: Props) {
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
   const handleUploadClick = () => {
     fileInputRef.current?.click();
   };
-
   const handleFileChange = (e: any) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = event => {
         setProfileImage(event.target?.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
-
   const removeImage = (e: any) => {
     e.stopPropagation();
     setProfileImage(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
-
-  return (
-    <div className="container" style={{ paddingBottom: '30px' }}>
+  return <div className="container -become-provider2-style-1">
       <div className="logo-container">
         <img src="/logo.png" alt="Pet365 Logo" className="logo-image" />
       </div>
@@ -44,48 +40,24 @@ export function BecomeProvider2({ path: _path }: Props) {
 
       <div className="form-group">
         <label>Upload Profile</label>
-        <input 
-          type="file" 
-          ref={fileInputRef} 
-          style={{ display: 'none' }} 
-          accept="image/*" 
-          onChange={handleFileChange}
-        />
-        <div className="upload-card" onClick={handleUploadClick} style={{ padding: profileImage ? '10px' : '20px', minHeight: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          {profileImage ? (
-            <div style={{ position: 'relative', width: '100px', height: '100px' }}>
-              <img 
-                src={profileImage} 
-                alt="Profile Preview" 
-                style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover' }} 
-              />
-              <div 
-                onClick={removeImage} 
-                style={{ 
-                  position: 'absolute', 
-                  top: '-5px', 
-                  right: '-5px', 
-                  backgroundColor: 'var(--error)', 
-                  color: 'white', 
-                  borderRadius: '50%', 
-                  padding: '2px',
-                  cursor: 'pointer'
-                }}
-              >
+        <input type="file" ref={fileInputRef} accept="image/*" onChange={handleFileChange} className="-become-provider2-style-2" />
+        <div className="upload-card -become-provider2-style-3" onClick={handleUploadClick} style={{
+        padding: profileImage ? '10px' : '20px'
+      }}>
+          {profileImage ? <div className="-become-provider2-style-4">
+              <img src={profileImage} alt="Profile Preview" className="-become-provider2-style-5" />
+              <div onClick={removeImage} className="-become-provider2-style-6">
                 <X size={16} />
               </div>
-            </div>
-          ) : (
-            <>
+            </div> : <>
               <div className="icon">
                 <UploadCloud size={24} />
               </div>
-              <div style={{ marginLeft: '10px' }}>
-                <h3 style={{ fontSize: '14px', margin: 0 }}>Upload Profile Picture</h3>
-                <p style={{ fontSize: '11px', margin: 0 }}>Profile must be png or jpeg, jpg</p>
+              <div className="-become-provider2-style-7">
+                <h3 className="-become-provider2-style-8">Upload Profile Picture</h3>
+                <p className="-become-provider2-style-9">Profile must be png or jpeg, jpg</p>
               </div>
-            </>
-          )}
+            </>}
         </div>
       </div>
 
@@ -109,8 +81,8 @@ export function BecomeProvider2({ path: _path }: Props) {
         <div className="input-container">
           <input type="number" placeholder="3 exp" />
           <div className="input-icon">
-             <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                <ChevronDown size={14} style={{ transform: 'rotate(180deg)' }} />
+             <div className="-become-provider2-style-10">
+                <ChevronDown size={14} className="-become-provider2-style-11" />
                 <ChevronDown size={14} />
              </div>
           </div>
@@ -121,7 +93,7 @@ export function BecomeProvider2({ path: _path }: Props) {
         <label>Business Address</label>
         <div className="input-container">
           <input type="text" placeholder="Address" />
-          <div className="input-icon" style={{ color: 'var(--primary)' }}>
+          <div className="input-icon -become-provider2-style-12">
             <MapPin size={20} />
           </div>
         </div>
@@ -129,22 +101,9 @@ export function BecomeProvider2({ path: _path }: Props) {
 
       <div className="form-group">
         <label>Short Bio</label>
-        <textarea 
-          placeholder="Enter About Your Self" 
-          style={{ 
-            width: '100%', 
-            padding: '14px 16px', 
-            borderRadius: '12px', 
-            border: '1px solid transparent', 
-            backgroundColor: 'var(--white)', 
-            minHeight: '100px',
-            fontFamily: 'inherit',
-            outline: 'none'
-          }}
-        />
+        <textarea placeholder="Enter About Your Self" className="-become-provider2-style-13" />
       </div>
 
       <button className="btn btn-primary" onClick={() => route('/')}>Submit</button>
-    </div>
-  );
+    </div>;
 }

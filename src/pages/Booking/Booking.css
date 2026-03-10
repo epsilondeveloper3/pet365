@@ -1,0 +1,97 @@
+.-booking-style-1 {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  overflow: hidden;
+}
+
+.-booking-style-2 {
+  height: 30px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.-booking-style-3 {
+  padding: 20px 20px 10px;
+  background-color: white;
+}
+
+.-booking-style-4 {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.-booking-style-5 {
+  background-color: white;
+  margin: 0;
+  padding: 10px 20px;
+  border-radius: 0;
+}
+
+.-booking-style-6 {
+  display: flex;
+  background: #F5F5F5;
+  border-radius: 30px;
+  padding: 4px;
+  width: 100%;
+}
+
+.-booking-style-7 {
+  padding: 10px;
+}
+
+.-booking-style-8 {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 0 100px;
+}
+
+.-booking-style-9 {
+  margin: 0;
+}
+
+.-booking-style-10 {
+  margin: 2px 0 0;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.-booking-style-11 {
+  text-align: right;
+}
+
+.-booking-style-12 {
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+.-booking-style-13 {
+  border-top: 1px solid #f9f9f9;
+  margin-top: 15px;
+  padding-top: 15px;
+}
+
+.-booking-style-14 {
+  font-weight: 600;
+}
+
+.-booking-style-15 {
+  font-weight: 600;
+}
+
+.-booking-style-16 {
+  font-weight: 600;
+}
+
+.-booking-style-17 {
+  margin-top: 15px;
+  padding: 12px;
+}
+
+.-booking-style-18 {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-muted);
+}
