@@ -10,17 +10,45 @@ interface Props {
 export function Login({ path: _path }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({ name: '', password: '' });
 
-  const handleLogin = (e: any) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API call
-    console.log("Logging in with:", formData);
-    setTimeout(() => {
-      setLoading(false);
+    setErrorMessage('');
+    try {
+      const response = await fetch('http://10.0.2.2:5001/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          password: formData.password
+        })
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 403 && data.userId) {
+           sessionStorage.setItem('pet365_temp_userId', data.userId);
+           sessionStorage.setItem('pet365_temp_phone', formData.name); // Usually we need to check if unverified
+           route('/otp');
+           return;
+        }
+        throw new Error(data.error || 'Login failed');
+      }
+
+      // Store auth session
+      sessionStorage.setItem('pet365_user', JSON.stringify(data.user));
       route('/dashboard');
-    }, 2000);
+    } catch (error: any) {
+      console.error(error);
+      setErrorMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e: any) => {
@@ -40,12 +68,13 @@ export function Login({ path: _path }: Props) {
       </div>
 
       <form onSubmit={handleLogin}>
+        {errorMessage && <div style={{ color: 'red', textAlign: 'center', marginBottom: '10px' }}>{errorMessage}</div>}
         <div className="form-group">
-          <label>Name</label>
+          <label>Name or Email</label>
           <input 
             type="text" 
             name="name"
-            placeholder="Enter name" 
+            placeholder="Enter Name, Email or Phone" 
             value={formData.name}
             onInput={handleChange}
             required 
@@ -79,11 +108,11 @@ export function Login({ path: _path }: Props) {
       </div>
 
       <div className="social-btns">
-        <button className="btn btn-outline">
+        <button className="btn btn-outline" type="button">
           <img src="https://www.google.com/favicon.ico" width="18" alt="Google" />
           Sign In with Google
         </button>
-        <button className="btn btn-outline">
+        <button className="btn btn-outline" type="button">
           <img src="https://www.apple.com/favicon.ico" width="18" alt="Apple" />
           Sign In with Apple
         </button>
