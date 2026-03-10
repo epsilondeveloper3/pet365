@@ -31,7 +31,7 @@ export const providers: Provider[] = [
     exp: '2 Year',
     pets: 'Dog, Cat',
     img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop',
-    certifications: ['/cert1.png', '/cert2.png', '/cert3.png'],
+    certifications: ['/image 4.png', '/image 5.png', '/image 6.png'],
     bio: "Emily is a lifelong pet lover. They're available for overnight stays on weekends and can administer topical, eye/ear, and oral meds. Your furry family will be treated with love and care while you're away! 🐱✨",
     reviews: [
       { id: 1, user: 'Dianne Russell', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100', date: '1 Feb, 2026', rating: 4.5, comment: 'EMILY took great care of our cat! Excellent communication!' },

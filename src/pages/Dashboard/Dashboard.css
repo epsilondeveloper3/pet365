@@ -5,7 +5,8 @@
 }
 
 .-dashboard-style-2 {
-  height: 30px;
+  width: 100px;
+  height: auto;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);

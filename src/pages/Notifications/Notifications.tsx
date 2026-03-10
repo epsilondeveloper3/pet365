@@ -8,16 +8,19 @@ interface Props {
   path?: string;
 }
 
+import { notifications as allNotifications } from '../../data/notifications';
+
 export function Notifications({ path: _path }: Props) {
   const [activeTab, setActiveTab] = useState('All');
 
-  const notifications = [
-    { id: 1, type: 'Message', user: 'Philip', role: 'Groomer', time: '1:20 PM', msg: '2 new messages received from Philip Groomer', icon: <MessageSquare size={16} /> },
-    { id: 2, type: 'Booking', title: 'Booking Confirmed', msg: 'Your grooming appointment with Joe Kit is confirmed for March 5 at 3:10 PM.', time: '12:45 AM', icon: <Calendar size={16} /> },
-    { id: 3, type: 'Appointment', title: 'Upcoming Appointment', msg: 'Your booking session with Alex Trainer starts in 1 hour.', time: '11:45 AM', icon: <Calendar size={16} /> },
-    { id: 4, type: 'Request', user: 'Dr. Palo', role: 'Vet', msg: 'Dr. Palo has accepted your veterinary consultation request.', time: '10:30 AM', icon: <CheckCircle2 size={16} /> },
-    { id: 5, type: 'Completion', title: 'Booking Completed', msg: 'Your grooming appointment with Joe Kit has been completed. Please leave a review.', time: '9:20 AM', icon: <CheckCircle2 size={16} /> }
-  ];
+  const getIcon = (type: string) => {
+    switch(type) {
+      case 'Message': return <MessageSquare size={16} />;
+      case 'Booking':
+      case 'Appointment': return <Calendar size={16} />;
+      default: return <CheckCircle2 size={16} />;
+    }
+  };
 
   return (
     <div className="container notifications-page">
@@ -44,10 +47,10 @@ export function Notifications({ path: _path }: Props) {
       </div>
 
       <div className="notification-list">
-        {notifications.map(notif => (
+        {allNotifications.filter(n => activeTab === 'All' || n.type === activeTab).map(notif => (
           <div key={notif.id} className="notification-card">
             <div className="card-header-row">
-              <div className="icon-circle">{notif.icon}</div>
+              <div className="icon-circle">{getIcon(notif.type)}</div>
               <div className="content">
                 <div className="title-row">
                   <h4>{notif.user ? `${notif.user} ${notif.role}` : notif.title}</h4>

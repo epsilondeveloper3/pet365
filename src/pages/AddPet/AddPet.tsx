@@ -18,24 +18,37 @@ export function AddPet({ id }: Props) {
   const [petImage, setPetImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const typeOptions = [
+    { label: 'Dog', value: 'Dog' },
+    { label: 'Cat', value: 'Cat' },
+    { label: 'Horse', value: 'Horse' },
+    { label: 'Cow', value: 'Cow' },
+    { label: 'Reptile', value: 'Reptile' },
+    { label: 'Snake', value: 'Snake' },
+    { label: 'Tiger', value: 'Tiger' },
+    { label: 'Monkey', value: 'Monkey' },
+    { label: 'Bird', value: 'Bird' }
+  ];
+
   const breedOptions = [
-    { label: 'Rottweiler', value: 'rottweiler' },
-    { label: 'Persian Cat', value: 'persian' },
-    { label: 'Golden Retriever', value: 'golden' },
-    { label: 'Bulldog', value: 'bulldog' },
-    { label: 'German Shepherd', value: 'gsd' }
+    { label: 'Husky', value: 'Husky' },
+    { label: 'Persian Cat', value: 'Persian' },
+    { label: 'Golden Retriever', value: 'Golden Retriever' },
+    { label: 'Bulldog', value: 'Bulldog' },
+    { label: 'German Shepherd', value: 'German Shepherd' },
+    { label: 'Other', value: 'Other' }
   ];
 
   useEffect(() => {
     if (id) {
-      const savedPets = localStorage.getItem('pet365_pets');
+      const savedPets = localStorage.getItem('pet365_user_pets');
       if (savedPets) {
         const pets = JSON.parse(savedPets);
         const petToEdit = pets.find((p: any) => p.id === id);
         if (petToEdit) {
           setPetName(petToEdit.name);
           setPetBreed(petToEdit.breed);
-          setPetType(petToEdit.type);
+          setPetType(petToEdit.type || 'Dog');
           setGender(petToEdit.gender);
           setAge(petToEdit.age);
           setPetImage(petToEdit.image);
@@ -49,6 +62,11 @@ export function AddPet({ id }: Props) {
   const handleFileChange = (e: any) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Basic size check to avoid QuotaExceededError
+      if (file.size > 1024 * 1024) { // 1MB limit for demo
+        alert('Image is too large. Please select an image under 1MB.');
+        return;
+      }
       const reader = new FileReader();
       reader.onload = (event) => setPetImage(event.target?.result as string);
       reader.readAsDataURL(file);
@@ -56,13 +74,18 @@ export function AddPet({ id }: Props) {
   };
 
   const handleSubmit = () => {
-    const savedPets = localStorage.getItem('pet365_pets');
+    if (!petName) {
+      alert('Please enter a pet name.');
+      return;
+    }
+
+    const savedPets = localStorage.getItem('pet365_user_pets');
     let pets = savedPets ? JSON.parse(savedPets) : [];
 
     const petData = {
       id: id || Math.random().toString(36).substr(2, 9),
       name: petName,
-      breed: petBreed,
+      breed: petBreed || 'General',
       type: petType,
       age: age,
       gender: gender,
@@ -75,8 +98,13 @@ export function AddPet({ id }: Props) {
       pets.push(petData);
     }
 
-    localStorage.setItem('pet365_pets', JSON.stringify(pets));
-    route('/my-pets');
+    try {
+      localStorage.setItem('pet365_user_pets', JSON.stringify(pets));
+      route('/my-pets');
+    } catch (e) {
+      console.error('Storage error:', e);
+      alert('Failed to save pet. The image might be too large for storage. Please try a smaller image.');
+    }
   };
 
   return (
@@ -117,6 +145,14 @@ export function AddPet({ id }: Props) {
             onInput={(e: any) => setPetName(e.target.value)}
           />
         </div>
+
+        <Dropdown 
+          label="Pet Type"
+          options={typeOptions}
+          value={petType}
+          onChange={setPetType}
+          placeholder="Select pet type"
+        />
 
         <Dropdown 
           label="Pet Breed"

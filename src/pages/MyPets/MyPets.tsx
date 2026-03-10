@@ -5,36 +5,25 @@ import { route } from 'preact-router';
 import { useState, useEffect } from 'preact/hooks';
 import { useSidebar } from '../../context/SidebarContext';
 
-interface Pet {
-  id: string;
-  name: string;
-  breed: string;
-  type: string;
-  age: number;
-  gender: string;
-  image: string;
-}
+
 
 interface Props {
   path?: string;
 }
 
+import { initialPets } from '../../data/pets';
+
 export function MyPets({ path: _path }: Props) {
   const { openSidebar } = useSidebar();
-  const [pets, setPets] = useState<Pet[]>([]);
+  const [pets, setPets] = useState<any[]>([]);
 
   useEffect(() => {
-    const savedPets = localStorage.getItem('pet365_pets');
-    if (savedPets) {
-      setPets(JSON.parse(savedPets));
+    const saved = localStorage.getItem('pet365_user_pets');
+    if (saved) {
+      setPets(JSON.parse(saved));
     } else {
-      // Default static data
-      const defaultPets = [
-        { id: '1', name: 'Rocky', breed: 'Rottweiler', type: 'Dog', age: 2, gender: 'Male', image: 'https://images.unsplash.com/photo-1567171466295-4afa58141217?w=300&h=300&fit=crop' },
-        { id: '2', name: 'Luna', breed: 'Persian', type: 'Cat', age: 1, gender: 'Female', image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300&h=300&fit=crop' }
-      ];
-      setPets(defaultPets);
-      localStorage.setItem('pet365_pets', JSON.stringify(defaultPets));
+      setPets(initialPets);
+      localStorage.setItem('pet365_user_pets', JSON.stringify(initialPets));
     }
   }, []);
 
@@ -42,7 +31,7 @@ export function MyPets({ path: _path }: Props) {
     e.stopPropagation();
     const updatedPets = pets.filter(p => p.id !== id);
     setPets(updatedPets);
-    localStorage.setItem('pet365_pets', JSON.stringify(updatedPets));
+    localStorage.setItem('pet365_user_pets', JSON.stringify(updatedPets));
   };
 
   const handleEdit = (id: string, e: any) => {

@@ -58,7 +58,7 @@ export function App() {
           <Booking path="/booking" />
           <Search path="/search" />
           <Chats path="/chats" />
-          <ChatDetail path="/chat-detail" />
+          <ChatDetail path="/chat-detail/:id" />
           <Profile path="/profile" />
           <EditProfile path="/edit-profile" />
           <ServiceDetail path="/service-detail/:id" />

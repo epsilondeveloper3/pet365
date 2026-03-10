@@ -1,12 +1,14 @@
 import './Booking.css';
 import { Menu, User, Calendar, Clock, Dog } from 'lucide-preact';
 import { BottomNav } from '../../components/BottomNav';
-import { useState, useMemo } from 'preact/hooks';
+import { useState, useMemo, useEffect } from 'preact/hooks';
 import { route } from 'preact-router';
 import { useSidebar } from '../../context/SidebarContext';
 interface Props {
   path?: string;
 }
+import { bookings as staticBookings } from '../../data/bookings';
+
 export function Booking({
   path: _path
 }: Props) {
@@ -14,60 +16,33 @@ export function Booking({
     openSidebar
   } = useSidebar();
   const [activeTab, setActiveTab] = useState('All');
-  const bookings = [{
-    id: 1,
-    service: 'Grooming',
-    provider: 'Paws & Claws Spa',
-    status: 'Confirm',
-    price: '$90.00',
-    pet: 'Monty',
-    date: 'March 25, 2026',
-    time: '3:00 AM'
-  }, {
-    id: 2,
-    service: 'Vet Consultation',
-    provider: 'Dr. Emily Jose',
-    status: 'Confirm',
-    price: '$120.00',
-    pet: 'Bella',
-    date: 'March 28, 2026',
-    time: '10:00 AM'
-  }, {
-    id: 3,
-    service: 'Grooming',
-    provider: 'Paws & Claws Spa',
-    status: 'Confirm',
-    price: '$90.00',
-    pet: 'Monty',
-    date: 'March 15, 2026',
-    time: '3:00 AM'
-  }, {
-    id: 4,
-    service: 'Grooming',
-    provider: 'Paws & Claws Spa',
-    status: 'Completed',
-    price: '$90.00',
-    pet: 'Monty',
-    date: 'March 2, 2026',
-    time: '3:00 AM',
-    feedback: true
-  }, {
-    id: 5,
-    service: 'Vaccination',
-    provider: 'City Pet Clinic',
-    status: 'Completed',
-    price: '$50.00',
-    pet: 'Charlie',
-    date: 'February 20, 2026',
-    time: '11:00 AM',
-    feedback: false
-  }];
+  const [dynamicBookings, setDynamicBookings] = useState<any[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('pet365_bookings');
+    if (saved) {
+      const parsed = JSON.parse(saved).map((b: any, idx: number) => ({
+        id: `dyn-${idx}`,
+        service: 'Service',
+        provider: b.providerName,
+        status: 'Confirm',
+        price: '$129.99',
+        pet: 'My Pet',
+        date: `Jan ${b.date}, 2026`,
+        time: b.time
+      }));
+      setDynamicBookings(parsed);
+    }
+  }, []);
+
+  const allBookings = [...dynamicBookings, ...staticBookings];
+
   const filteredBookings = useMemo(() => {
-    if (activeTab === 'All') return bookings;
-    if (activeTab === 'Complete') return bookings.filter(b => b.status === 'Completed');
-    if (activeTab === 'Upcoming') return bookings.filter(b => b.status === 'Confirm');
-    return bookings;
-  }, [activeTab]);
+    if (activeTab === 'All') return allBookings;
+    if (activeTab === 'Complete') return allBookings.filter(b => b.status === 'Completed');
+    if (activeTab === 'Upcoming') return allBookings.filter(b => b.status === 'Confirm');
+    return allBookings;
+  }, [activeTab, dynamicBookings]);
   return <div className="-booking-style-1">
       <div className="top-bar">
         <div className="icon-btn" onClick={openSidebar}>

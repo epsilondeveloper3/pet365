@@ -70,9 +70,9 @@ export function ServiceDetail({ id }: Props) {
       <div className="certification-section">
          <p>Certification</p>
          <div className="cert-icons">
-            <img src="/cert1.png" alt="Cert" />
-            <img src="/cert2.png" alt="Cert" />
-            <img src="/cert3.png" alt="Cert" />
+            {provider.certifications.map((cert, idx) => (
+               <img key={idx} src={cert} alt={`Cert ${idx + 1}`} />
+            ))}
          </div>
       </div>
 
@@ -112,7 +112,18 @@ export function ServiceDetail({ id }: Props) {
                      </ul>
                   </div>
                </div>
-               <img src="/map_static.png" className="static-map-img" alt="Map" />
+               {/* Functional Map Embed */}
+               <div className="map-wrapper" style={{ margin: '15px 0', height: '200px', borderRadius: '15px', overflow: 'hidden' }}>
+                  <iframe 
+                    width="100%" 
+                    height="100%" 
+                    frameBorder="0" 
+                    scrolling="no" 
+                    marginHeight={0} 
+                    marginWidth={0} 
+                    src={`https://www.openstreetmap.org/export/embed.html?bbox=-73.91%2C40.70%2C-73.89%2C40.71&layer=mapnik`}
+                  ></iframe>
+               </div>
             </div>
 
             <div className="cancel-policy">
@@ -154,9 +165,19 @@ export function ServiceDetail({ id }: Props) {
                </div>
                <div className="cal-grid">
                   {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map(d => <span key={d} className="cal-day-label">{d}</span>)}
-                  {Array.from({ length: 31 }).map((_, i) => (
-                    <span key={i} className={`cal-date ${(i+1) % 5 === 0 ? 'red' : (i+1) === 15 ? 'active' : ''}`}>{i + 1}</span>
-                  ))}
+                  {Array.from({ length: 31 }).map((_, i) => {
+                    const d = i + 1;
+                    const isBusy = d % 5 === 0;
+                    return (
+                      <span 
+                        key={i} 
+                        className={`cal-date ${isBusy ? 'red' : selectedDate === d.toString() ? 'active' : ''}`}
+                        onClick={() => !isBusy && setSelectedDate(d.toString())}
+                      >
+                        {d}
+                      </span>
+                    );
+                  })}
                </div>
                <div className="cal-legend">
                   <span className="leg-item"><div className="dot available"></div> Available</span>
@@ -165,7 +186,7 @@ export function ServiceDetail({ id }: Props) {
             </div>
             <div className="bottom-btns">
                <button className="btn-book-primary" onClick={() => setShowBooking(true)}>Book Service</button>
-               <button className="btn-chats-sec" onClick={() => route('/chats')}><MessageSquare size={18} /> Chats</button>
+               <button className="btn-chats-sec" onClick={() => route(`/chat-detail/${provider.id}`)}><MessageSquare size={18} /> Chats</button>
             </div>
           </div>
         )}
@@ -204,7 +225,21 @@ export function ServiceDetail({ id }: Props) {
                  ))}
               </div>
 
-              <button className="btn-confirm-booking" onClick={() => { alert('Service Booked Successfully!'); setShowBooking(false); }}>
+              <button className="btn-confirm-booking" onClick={() => {
+                 const booking = {
+                   providerId: provider.id,
+                   providerName: provider.name,
+                   date: selectedDate,
+                   time: selectedTime,
+                   timestamp: new Date().toISOString()
+                 };
+                 const saved = localStorage.getItem('pet365_bookings');
+                 const bookings = saved ? JSON.parse(saved) : [];
+                 bookings.push(booking);
+                 localStorage.setItem('pet365_bookings', JSON.stringify(bookings));
+                 alert(`Service with ${provider.name} Booked Successfully for Jan ${selectedDate} at ${selectedTime}!`);
+                 setShowBooking(false); 
+              }}>
                  Book Service Now
               </button>
            </div>
@@ -213,6 +248,7 @@ export function ServiceDetail({ id }: Props) {
     </div>
   );
 }
+
 
 function ChevronDown(props: any) {
   return <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>;
