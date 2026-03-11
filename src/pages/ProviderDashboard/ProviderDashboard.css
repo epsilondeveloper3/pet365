@@ -1,0 +1,250 @@
+.provider-dash-page {
+  background-color: #F8FCFB;
+  padding-bottom: 90px;
+}
+
+.welcome-section {
+  padding: 20px 5px;
+}
+
+.welcome-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 4px;
+}
+
+.welcome-sub {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.dash-filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
+  margin-bottom: 20px;
+}
+
+.dash-filter-row h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+}
+
+.month-picker {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(23, 123, 119, 0.2);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 0 5px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f1f5f9;
+}
+
+.stat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.stat-icon-circ {
+  width: 32px;
+  height: 32px;
+  background-color: #EBF7F6;
+  color: var(--primary);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.stat-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: #000;
+}
+
+.stat-trend {
+  font-size: 10px;
+  color: var(--primary);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 4px;
+}
+
+.tab-switcher-container {
+  padding: 0 5px;
+  margin-bottom: 25px;
+}
+
+.tab-switcher-pill {
+  background: white;
+  border-radius: 30px;
+  padding: 5px;
+  display: flex;
+  gap: 5px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  border: 1px solid #f1f5f9;
+}
+
+.tab-btn-lg {
+  flex: 1;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  background: transparent;
+  color: #64748b;
+}
+
+.tab-btn-lg.active {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(23, 123, 119, 0.2);
+}
+
+.dash-list-section {
+  padding: 0 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.provider-booking-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  border: 1px solid #f1f5f9;
+}
+
+.type-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.type-row h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pnd-tag {
+  font-size: 10px;
+  background-color: #fee2e2;
+  color: #ef4444;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.price-tag {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.provider-sub {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.card-details-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.det-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.card-actions button {
+  flex: 1;
+  border-radius: 12px;
+  padding: 12px 0;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-sec-outline {
+  border: 1.5px solid var(--primary) !important;
+  color: var(--primary);
+  background: transparent;
+}
+
+.btn-prim-full {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+}
+
+.btn-prim-full:hover {
+  background-color: var(--primary-light);
+}

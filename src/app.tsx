@@ -18,6 +18,7 @@ import { MyPets } from './pages/MyPets/MyPets';
 import { ChatDetail } from './pages/ChatDetail/ChatDetail';
 import { Profile } from './pages/Profile/Profile';
 import { EditProfile } from './pages/EditProfile/EditProfile';
+import { ProviderDashboard } from './pages/ProviderDashboard/ProviderDashboard';
 import { ServiceDetail } from './pages/ServiceDetail/ServiceDetail';
 import { PrivacyPolicy, HelpSupport } from './pages/StaticPages/StaticPages';
 
@@ -61,6 +62,7 @@ export function App() {
           <ChatDetail path="/chat-detail/:id" />
           <Profile path="/profile" />
           <EditProfile path="/edit-profile" />
+          <ProviderDashboard path="/provider-dashboard" />
           <ServiceDetail path="/service-detail/:id" />
           <PrivacyPolicy path="/privacy" />
           <HelpSupport path="/support" />

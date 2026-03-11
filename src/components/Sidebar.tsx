@@ -1,4 +1,4 @@
-import { X, User, RefreshCw, ShieldCheck, HelpCircle, LogOut, ChevronRight } from 'lucide-preact';
+import { X, User, RefreshCw, ShieldCheck, HelpCircle, LogOut, ChevronRight, Briefcase } from 'lucide-preact';
 import { route } from 'preact-router';
 import { useSidebar } from '../context/SidebarContext';
 
@@ -37,13 +37,21 @@ export function Sidebar() {
                 <ChevronRight size={16} color="#D1D5DB" />
              </div>
 
-             <div onClick={() => handleNavigate('/become-provider-1')} className="menu-item">
-                <div className="menu-item-left">
-                  <RefreshCw size={18} color="var(--primary)" />
-                  <span>Switch to Provider</span>
-                </div>
-                <ChevronRight size={16} color="#D1D5DB" />
-             </div>
+              <div onClick={() => handleNavigate('/become-provider-1')} className="menu-item">
+                 <div className="menu-item-left">
+                   <RefreshCw size={18} color="var(--primary)" />
+                   <span>Switch to Provider</span>
+                 </div>
+                 <ChevronRight size={16} color="#D1D5DB" />
+              </div>
+
+              <div onClick={() => handleNavigate('/provider-dashboard')} className="menu-item">
+                 <div className="menu-item-left">
+                   <Briefcase size={18} color="var(--primary)" />
+                   <span>Provider Dashboard</span>
+                 </div>
+                 <ChevronRight size={16} color="#D1D5DB" />
+              </div>
 
              <div onClick={() => handleNavigate('/privacy')} className="menu-item">
                 <div className="menu-item-left">
